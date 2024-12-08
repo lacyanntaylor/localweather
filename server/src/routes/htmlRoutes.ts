@@ -7,4 +7,9 @@ const router = Router();
 
 // TODO: Define route to serve index.html
 
+router.get('/', (req, res) => {
+    const indexPath = path.join(__dirname, '../public/index.html');
+    res.sendFile(indexPath);
+});
+
 export default router;
