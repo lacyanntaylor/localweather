@@ -25,13 +25,14 @@ router.post('/:city', async (req: Request, res: Response) => {
     console.error('Error fetching weather data:', err);
     res.status(500).json({
       message: 'Failed to fetch weather data.',
-      error: err.message,
+      error: (err as Error).message,
     });
   }
 });
 
 // GET Request to retrieve the search history
-router.get('/searchHistory', async (req: Request, res: Response) => {
+router.get('/searchHistory', async (_req: Request, res: Response) => {
+  
   try {
     const history = await HistoryService.getCities();
     res.status(200).json({
@@ -42,7 +43,7 @@ router.get('/searchHistory', async (req: Request, res: Response) => {
     console.error('Error retrieving search history:', err);
     res.status(500).json({
       message: 'Failed to retrieve search history.',
-      error: err.message,
+      error: (err as Error).message,
     });
   }
 });
@@ -60,7 +61,7 @@ router.delete('/history/:id', async (req: Request, res: Response) => {
     console.error('Error removing city:', err);
     res.status(500).json({
       message: 'Failed to remove city from search history.',
-      error: err.message,
+      error: (err as Error).message,
     });
   }
 });

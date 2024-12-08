@@ -24,7 +24,7 @@ class HistoryService {
     try {
       return await fs.readFile(this.filePath, { encoding: 'utf8' });
     } catch (err) {
-      if (err.code === 'ENOENT') {
+      if (err instanceof Error && (err as NodeJS.ErrnoException).code === 'ENOENT')  {
         // If file doesn't exist, return an empty array as JSON string
         return '[]';
       }

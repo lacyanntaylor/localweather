@@ -36,6 +36,9 @@ class WeatherService {
 
   // Destructure the location data to extract coordinates
   private destructureLocationData(locationData: any): Coordinates {
+    if (!locationData.coord) {
+      throw new Error("Coordinates not found in location data");
+    }
     return {
       lat: locationData.coord.lat,
       lon: locationData.coord.lon,
@@ -72,8 +75,8 @@ class WeatherService {
     };
   }
 
-  // Build the forecast array based on the current weather data
-  private buildForecastArray(currentWeather: Weather, weatherData: any[]): Weather[] {
+  // Build the forecast array based on the weather data
+  private buildForecastArray(weatherData: any[]): Weather[] {
     return weatherData.map((data: any) => ({
       id: data.weather[0].id,
       url: data.weather[0].icon,
@@ -90,8 +93,8 @@ class WeatherService {
       // Parse current weather
       const currentWeather = this.parseCurrentWeather(weatherData);
 
-      // Build forecast array
-      const forecast = this.buildForecastArray(currentWeather, weatherData.list || []);
+      // Build forecast array (weatherData.list is optional, use an empty array if it doesn't exist)
+      const forecast = this.buildForecastArray(weatherData.list || []);
 
       return { currentWeather, forecast };
     } catch (err) {
