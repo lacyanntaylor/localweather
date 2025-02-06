@@ -11,5 +11,7 @@ router.get('/', (_req, res) => {
     const indexPath = path.join(__dirname, '../public/index.html');
     res.sendFile(indexPath);
 });
-
+router.get('*', (_req: Request, res: Response)=> {
+    res.sendFile(path.join(__dirname, '..'))
+})
 export default router;
