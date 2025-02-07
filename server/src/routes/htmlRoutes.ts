@@ -8,7 +8,7 @@ const router = Router();
 
 // Route to serve index.html
 router.get('/', (_req: Request, res: Response) => {
-    const indexPath = path.join(__dirname, '../public/index.html');
+    const indexPath = path.join(__dirname, '../clinet/dist/index.html');
     res.sendFile(indexPath);
 });
 
